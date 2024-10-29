@@ -10,11 +10,11 @@ The Dice Game is a simple yet engaging game that typically involves one or more 
 
 **Initial Landing View**
 
-![image](https://github.com/kevinsubmit/dice-game/blob/main/imgs/begin.png)
+![image](https://github.com/kevinsubmit/dice-game/blob/main/public/images/begin.png)
 
 **Results View**
 
-![image](https://github.com/kevinsubmit/dice-game/blob/main/imgs/result.png)
+![image](https://github.com/kevinsubmit/dice-game/blob/main/public/images/result.png)
 
 ## User Stories
 
