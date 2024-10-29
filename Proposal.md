@@ -30,8 +30,10 @@ The Dice Game is a simple yet engaging game that typically involves one or more 
 
 #### Stretch Goals
 
--  Allow players to see the results history!
 -  apply the registration and log in functions.
+-  Allow two players play together.
+-  Allow players to see the results history.
+
 
 #### Notionboard Template
 Notionboard template for building projects ( You can use this for any project )
