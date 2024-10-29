@@ -31,7 +31,7 @@ The Dice Game is a simple yet engaging game that typically involves one or more 
 #### Stretch Goals
 
 -  apply the registration and log in functions.
--  Allow two players play together.
+-  Allow two players play together online.
 -  Allow players to see the results history.
 
 
