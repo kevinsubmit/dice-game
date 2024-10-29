@@ -63,15 +63,14 @@ Do not neglect to plan, you will thank yourself later for being proactive!
 
 
 /*---------- Variables (state) ---------*/
-// 玩家姓名
+玩家姓名
 let player1 = "Player 1";
 let player2 = "Player 2";
 
 /*----- Cached Element References  -----*/
 
-
 /*-------------- Functions -------------*/
-// 改变玩家姓名的功能
+ 改变玩家姓名的功能
 function editNames() {
 }
 
