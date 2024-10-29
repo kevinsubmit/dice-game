@@ -58,34 +58,43 @@ Do not neglect to plan, you will thank yourself later for being proactive!
 | Wesnesday  |   | Writing main logic                 |          |link the frontend|
 | Thursday   |   | Testing the program myself         |          |cheak again      |
 
+#### Pseudocode
+-Difine some variables used to track the state of the game
+ The computer dice number
+ The player's dice number
+ The result of each round
+ The match result - who is the winer
+ The result message -display the player won or loose in the round
+ The money that the winer won
+ 
+-Define the required constants
+ There are three results(win,lose,tie)
+ The time that the winer bet
+ we'll need a reference to a Dom element to display messages
 
-/*-------------- Constants -------------*/
+-Handle the player clicking a button
+  send the time that the player click the button
+  note:the player can't click the start button until the result come out
+
+-Handle generating random dice number for the computer player
+
+-Compare the player muber to the computer number,and check for a winner
+ send the result to the server(ajax)
+
+-Render a win/lose/tie message to the player
+ clearly indicate the player is won or lose or tie
+
+  
+
+ 
+
+ 
+ 
+ 
+ 
+ 
 
 
-/*---------- Variables (state) ---------*/
-
-
-
-玩家姓名
-let player1 = "Player 1";
-let player2 = "Player 2";
-
-/*----- Cached Element References  -----*/
-
-/*-------------- Functions -------------*/
-
-
- 改变玩家姓名的功能
-function editNames() {
-}
-
-摇骰子
-function rollTheDice() {
-}
-
-/*----------- Event Listeners ----------*/
-document.getElementById('').addEventListener('click',rollTheDice);
-document.getElementById('').addEventListener('click',editNames);
 
 
 
