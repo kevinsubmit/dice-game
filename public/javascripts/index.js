@@ -62,25 +62,29 @@ function isDisabled(throw_state) {
 //骰子score已经产生
 function resultComeOut(scoreSum = null) {
 
-
   isDisabled(true);
-  console.log(11111);
-  $(".cases p").addClass("border-flow");
-  if (parseInt(scoreSum) % 2 === 0) {
-  }
+  removeEffect();
 
-  setTimeout(() => {
-console.log(33333)
-   
-    $(".cases p")
-      .removeClass("border-flow")
-      .then(() => {
-        console.log(444);
-      })
-      .then(() => {
-        console.log(555);
-      });
-  }, 2000);
-
-  console.log(666)
 }
+
+
+// score出来后去掉一切效果
+function removeEffect(){
+
+  const myPromise = new Promise((resolve,reject) =>{
+    setTimeout(() =>{
+      resolve();  //如果括号里面有值那就作为参数传递给下面then里面的value
+      console.log(333);
+    },2000)
+  });
+
+  const wrappedPromise = Promise.resolve(myPromise);
+
+  wrappedPromise.then(() =>{
+    
+  
+    console.log(77777);
+  })
+}
+
+

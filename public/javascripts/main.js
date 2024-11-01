@@ -212,7 +212,6 @@ function createBoxGeometry() {
         positionAttr.setXYZ(i, position.x, position.y, position.z);
     }
 
-
     boxGeometry.deleteAttribute('normal');
     boxGeometry.deleteAttribute('uv');
     boxGeometry = BufferGeometryUtils.mergeVertices(boxGeometry);
@@ -279,7 +278,7 @@ function showRollResults(score) {
         
     } else {
        resultComeOut();
-       
+
         scoreResult.innerHTML += ('+' + score);
         scoreSum.innerHTML = ' = ' + (score + parseInt(scoreResult.innerHTML));
     }
