@@ -1,52 +1,153 @@
 
 body {
-  background-image: url(https://labfile.oss.aliyuncs.com/courses/8605/bg-451838.jpeg);
-  background-size: 100% 100%;
-  height: 95vh;
+  padding: 0;
   margin: 0;
 }
 
-h1 {
-  margin: 30px;
-  font-family: "Lobster", cursive;
-  text-shadow: 5px 0 #232931;
-  font-size: 4.5rem;
-  color: #4ecca3;
-  text-align: center;
-}
-p {
-  font-size: 2rem;
-  color: #4ecca3;
+.welcome{
+  padding-left: 10px;
 }
 
-img {
-  width: 100%;
+
+.big-pic-area{
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.big-pic-area p{
+  font-size: 12px;
+  font-weight: bold;
+}
+.active{
+  display: block !important;
 }
 
-.bottom {
-  padding-top: 30px;
-}
 
-.butn {
-  background-color: #4ecca3;
-  border-radius: 10px;
-  color: #ffff;
-  font-size: 30px;
-  padding: 16px 25px 16px 25px;
-  text-decoration: none;
+
+
+
+
+.big-pic{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-image: url('../images/myself.jpg');
+  background-size: cover;
   cursor: pointer;
 }
-.container {
-  width: 70%;
-  margin: auto;
-  text-align: center;
+
+.dashboard{
+  width: 120px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  background-color: azure;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  right: -120px;
+  border-radius: 5px;
+  zoom: 1；
 }
 
-.dice {
-  text-align: center;
-  display: inline-block;
-  margin: 10px;
-}over {
-  background: #232931;
-  text-decoration: none;
+.dashboard .piczone{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
 }
+.dashboard .piczone .small-pic{
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background-image: url('../images/myself.jpg');
+  background-size: cover;
+}
+.dashboard .account{
+  display: flex;
+  justify-content: space-evenly;
+}
+.dashboard .rules{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dashboard .line{
+  color: #d1d9e0;
+  width: 90%;
+}
+
+.money-area{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items:center;
+  background-color: red;
+  position: fixed;
+  top: 205px;
+  right: 10px;
+  width: 120px;
+}
+
+.money-area p{
+  font-size: 14px;
+  width: 40px;
+  height: 40px;
+  font-weight: bold;
+  color: red;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  transition: transform 0.3s ease;
+  background-position: center;
+  background-size: 130%;
+}
+.money-area p:hover{
+  transform:scale(1.4);
+}
+
+
+.money-area .chip_1{
+  background-image: url(../images/front_medium_1.jpeg);
+}
+.money-area .chip_2{
+  background-image: url(../images/front_medium_2.jpeg);
+}
+.money-area .chip_3{
+  background-image: url(../images/front_medium_3.jpeg);
+}
+.money-area .chip_4{
+  background-image: url(../images/front_medium_4.jpeg);
+}
+.money-area .chip_5{
+  font-size: 12px;
+  background-image: url(../images/front_medium_5.jpeg);
+}
+
+
+.border-flow{
+  border: 3px solid gold;
+  animation: border-pulse .5s infinite alternate; /* 应用动画 */
+
+}
+
+@keyframes border-pulse {
+  0% {
+    border-color: gold; /* 起始边框颜色 */
+    box-shadow: 0 0 10px #000; /* 起始阴影 */
+  }
+  50% {
+    border-color: gold; /* 边框色的中间颜色 */
+    box-shadow: 0 0 20px #fff; /* 阴影的中间大小 */
+  }
+  100% {
+    border-color: gold; /* 结束边框颜色 */
+    box-shadow: 0 0 10px #000; /* 结束阴影 */
+  }
+}
+ 

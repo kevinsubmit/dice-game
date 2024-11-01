@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #dice-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .dice {
+        width: 100px;
+        height: 100px;
+        background-color: #333;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .dice::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* background: #fff; */
+        transform: rotate(0deg) scale(1);
+        transform-origin: center center -50px;
+        animation: rotate-dice 5s infinite linear;
+      }
+
+      @keyframes rotate-dice {
+        0% {
+          transform: rotate(0deg) scale(1);
+        }
+        100% {
+          transform: rotate(360deg) scale(1.1);
+        }
+      }
+
+      .dice-1::before {
+        /* background-color: red; */
+      }
+      .dice-2::before {
+        background-color: yellow;
+      }
+      .dice-3::before {
+        background-color: green;
+      }
+      .dice-4::before {
+        background-color: blue;
+      }
+      .dice-5::before {
+        background-color: purple;
+      }
+      .dice-6::before {
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dice-container">
+      <div class="dice dice-1">🎲</div>
+      <div class="dice dice-2"></div>
+      <div class="dice dice-3"></div>
+      <div class="dice dice-4"></div>
+      <div class="dice dice-5"></div>
+      <div class="dice dice-6"></div>
+    </div>
+
+    <button id="roll-dice">Roll Dice</button>
+  </body>
+  <script>
+    document.getElementById("roll-dice").addEventListener("click", function () {
+      var dice = document.querySelectorAll(".dice");
+      dice.forEach(function (die) {
+        var randomNumber = Math.floor(Math.random() * 6) + 1;
+        die.style.setProperty("--dice-value", randomNumber);
+      });
+    });
+  </script>
+</html>
