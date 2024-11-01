@@ -1,5 +1,6 @@
-let drage_start_money = null; //筹码拖拽开始的筹码金额 1代表$1，2代表$5，3代表$10，4代表$20，5代表$100
-let drage_drop_type = null; //拖拽结束下注的类型
+let drag_start_money = null; //筹码拖拽开始的筹码金额 1代表$1，2代表$5，3代表$10，4代表$20，5代表$100
+let drag_real_money = null; //筹码拖拽开始的筹码金额 
+let drag_drop_type = null; //拖拽结束下注的类型
 let throw_state = false; //按钮默认是不能点击的，而且下注之前无法点击
 let result_comeout = false; //下注结果没有出来
 
@@ -13,34 +14,50 @@ $(".dashboard").on("mouseleave", function () {
 
 // 筹码拖拽效果  Chip drag effect
 function dragStart(event) {
-  event.dataTransfer.setData("text", event.target.id);
-  event.target.style.cursor = "grabbing";
+  // event.target.style.cursor = "grabbing";
 
-  drage_start_money = event.target.className.slice(-1);
+  drag_start_money = event.target.className.slice(-1);
+  drag_real_money  = parseInt(event.target.innerHTML.slice(1));
+  event.dataTransfer.setData("drag_real_money", drag_real_money); //通过dragStart传递参数drag_real_money
+
 }
 function dragOver(event) {
   event.preventDefault();
 }
+
+
 function drop(event) {
   event.preventDefault();
-  const data = event.dataTransfer.getData("text");
-  const draggableElement = document.getElementById(data);
 
-  drage_drop_type = event.target.innerHTML;
-  chipIsShow(drage_drop_type, drage_start_money);
-  // console.log(drage_drop_type);
+  const data = parseInt(event.dataTransfer.getData("drag_real_money"));
+  // const draggableElement = document.getElementById(data);
+
+  drag_drop_type = event.target.innerHTML;
+
+
+
+  moneySum(drag_drop_type,data)
+
+  console.log(drag_drop_type);
+
+  console.log(moneySum(drag_drop_type,data));
+  
+
+  chipIsShow(drag_drop_type, drag_start_money);
+
+  
 
   // // event.target.appendChild(draggableElement);
   // draggableElement.style.cursor = 'grabbing';
 }
 
 // 判断哪个筹码图标显示
-function chipIsShow(drage_drop_type, drage_start_money) {
+function chipIsShow(drag_drop_type, drag_start_money) {
   isDisabled(false);
-  if (drage_drop_type && drage_start_money) {
-    $("." + drage_drop_type + "-area")
+  if (drag_drop_type && drag_start_money) {
+    $("." + drag_drop_type + "-area")
       .children()
-      .eq(drage_start_money - 1)
+      .eq(drag_start_money - 1)
       .addClass("active");
   } else {
     $(".chip-novisible p").removeClass("active");
@@ -62,28 +79,41 @@ function isDisabled(throw_state) {
 //骰子score已经产生
 function resultComeOut(scoreSum = null) {
 
+  bet_type_money = [];
   isDisabled(true);
-  removeEffect();
-
+  removeEffect(scoreSum);
 }
 
-
 // score出来后去掉一切效果
-function removeEffect(){
+function removeEffect(scoreSum){
+  if(scoreSum % 2 == 0){
+    $(".cases").children().eq(0).removeClass("border-flow");
+    $(".cases").children().eq(1).addClass("border-flow");
+  }else{
+    $(".cases").children().eq(0).addClass("border-flow");
+    $(".cases").children().eq(1).removeClass("border-flow");
+  }
+
+  if(scoreSum <= 7){
+ 
+    $(".cases").children().eq(2).addClass("border-flow");
+    $(".cases").children().eq(3).removeClass("border-flow");
+  }else{
+  
+    $(".cases").children().eq(2).removeClass("border-flow");
+    $(".cases").children().eq(3).addClass("border-flow");
+  }
 
   const myPromise = new Promise((resolve,reject) =>{
     setTimeout(() =>{
       resolve();  //如果括号里面有值那就作为参数传递给下面then里面的value
-      console.log(333);
-    },2000)
+      $(".cases p").removeClass("border-flow");
+    },2500)
   });
 
   const wrappedPromise = Promise.resolve(myPromise);
-
   wrappedPromise.then(() =>{
-    
-  
-    console.log(77777);
+    $(".chip-novisible p").removeClass("active");
   })
 }
 

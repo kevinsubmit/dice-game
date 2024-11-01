@@ -277,10 +277,10 @@ function showRollResults(score) {
         scoreResult.innerHTML += score;
         
     } else {
-       resultComeOut();
-
         scoreResult.innerHTML += ('+' + score);
         scoreSum.innerHTML = ' = ' + (score + parseInt(scoreResult.innerHTML));
+        resultComeOut(score + parseInt(scoreResult.innerHTML));
+
     }
 }
 
