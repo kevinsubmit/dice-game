@@ -8,18 +8,33 @@
 		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
     <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'/>
     <script src="/javascripts/jquery-3.7.1.min.js"></script>
-    <script defer src="/javascripts/index.js"></script>
+
+    <script defer src="/javascripts/formatTime.js"></script>
     <script defer src="/javascripts/compute.js"></script>
+    <script defer src="/javascripts/index.js"></script>
+    <script defer src="/javascripts/marquee.js"></script>
+    
+    
+    
   </head>
   <body>
 
-    <p class="welcome">Welcome come to Las Vegas Online Dice , Austin</p>
-
+    <div class="carousel">
+      <div class="carousel-liner">
+        <div class="welcome">
+             Welcome come to Las Vegas Online Dice , Austin
+        </div>
+        <div class="time"></div>
+      </div>
+    </div>
     <!-- 框架里面自有的注释掉 -->
     <!-- <h1><%= title %></h1>
     <p>Welcome to <%= title %></p> -->
     <main>
 			<div class="content">
+
+
+        <div class="score">The score is <span id="score-result"> </span> <span id="score-sum"></span></div>
         <div class="cases">
           <p ondragover="dragOver(event)" ondrop="drop(event)">odd</p>
           <p ondragover="dragOver(event)" ondrop="drop(event)">even</p>
@@ -56,7 +71,7 @@
             <p class="chip_5" >$100</p>
           </div>
         </div>
-        <div class="score" style='opacity: 0;'>The score is <span id="score-result"> </span> <span id="score-sum"></span></div>
+        
         <canvas id="canvas"></canvas>
 				<div class="ui-controls">
 					<button id="roll-btn" disabled>THROW</button>
@@ -66,10 +81,10 @@
 
     <div class="big-pic-area">
       <div class="big-pic"></div>
-      <p>Your balance : $ <span>100</span></p>
+      <p>Balance : $ <span>100</span></p>
     </div>
     <div class="money-area">
-      <span>Pick your chip</span>
+      <div>Pick your chips</div>
       <p class="chip_1" draggable="true" ondragstart="dragStart(event)" >$1</p>
       <p class="chip_2" draggable="true" ondragstart="dragStart(event)">$5</p>
       <p class="chip_3" draggable="true" ondragstart="dragStart(event)">$10</p>

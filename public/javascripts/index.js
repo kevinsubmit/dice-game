@@ -36,11 +36,9 @@ function drop(event) {
 
 
 
-  moneySum(drag_drop_type,data)
-
-  console.log(drag_drop_type);
-
-  console.log(moneySum(drag_drop_type,data));
+  moneySum(drag_drop_type,data);
+  // moneySum(drag_drop_type,data);
+  console.log(money_type_sum);
   
 
   chipIsShow(drag_drop_type, drag_start_money);
@@ -78,10 +76,15 @@ function isDisabled(throw_state) {
 
 //骰子score已经产生
 function resultComeOut(scoreSum = null) {
-
-  bet_type_money = [];
   isDisabled(true);
   removeEffect(scoreSum);
+  money_type_sum = {
+    odd:   0,
+    even:  0,
+    small: 0,
+    big:   0,
+    sum:   0
+  };
 }
 
 // score出来后去掉一切效果
@@ -116,5 +119,9 @@ function removeEffect(scoreSum){
     $(".chip-novisible p").removeClass("active");
   })
 }
+
+// 获取当前时间
+$('.time').html((new Date().Format("MM-dd-yyyy" ))+' (EST)');
+
 
 

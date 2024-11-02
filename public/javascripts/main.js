@@ -9,7 +9,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 const canvasEl = document.querySelector('#canvas');
 const scoreResult = document.querySelector('#score-result');
 const scoreSum = document.querySelector('#score-sum');
-const score    =document.querySelector('.score');
+
 
 const rollBtn = document.querySelector('#roll-btn');
 
@@ -18,7 +18,7 @@ let renderer, scene, camera, diceMesh, physicsWorld;
 const params = {
     numberOfDice: 2,
     segments: 40,
-    edgeRadius: .07,
+    edgeRadius: .09,
     notchRadius: .12,
     notchDepth: .1,
 };
@@ -33,6 +33,7 @@ rollBtn.addEventListener('click', throwDice);
 
 function initScene() {
 
+  scoreResult.innerHTML = '';
 
     renderer = new THREE.WebGLRenderer({
         alpha: true,
@@ -45,7 +46,7 @@ function initScene() {
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, .1, 300)
-    camera.position.set(0, .2, 4).multiplyScalar(7);  //(0, .2, 4) 非常重要定义初始化骰子的位置
+    camera.position.set(0, .3, 4).multiplyScalar(7);  //(0, .2, 4) 非常重要定义初始化骰子的位置
 
     updateSceneSize();
 
@@ -62,13 +63,12 @@ function initScene() {
     
     createFloor();
     diceMesh = createDiceMesh();
+
     for (let i = 0; i < params.numberOfDice; i++) {
         diceArray.push(createDice());
         addDiceEvents(diceArray[i]);
     }
-
     // throwDice();
-
     render();
 
 }
@@ -137,7 +137,7 @@ function createDice() {
 }
 
 function createBoxGeometry() {
-
+ 
     let boxGeometry = new THREE.BoxGeometry(1, 1, 1, params.segments, params.segments, params.segments);
 
     const positionAttr = boxGeometry.attributes.position;
@@ -235,6 +235,7 @@ function createInnerGeometry() {
 }
 
 function addDiceEvents(dice) {
+
     dice.body.addEventListener('sleep', (e) => {
 
         dice.body.allowSleep = false;
@@ -249,6 +250,7 @@ function addDiceEvents(dice) {
         let isPiOrMinusPi = (angle) => (Math.abs(Math.PI - angle) < eps || Math.abs(Math.PI + angle) < eps);
 
         if (isZero(euler.z)) {
+
             if (isZero(euler.x)) {
                 showRollResults(1);
             } else if (isHalfPi(euler.x)) {
@@ -273,14 +275,14 @@ function addDiceEvents(dice) {
 }
 
 function showRollResults(score) {
+
     if (scoreResult.innerHTML === '') {
-        scoreResult.innerHTML += score;
-        
+        scoreResult.innerHTML = score;
+    
     } else {
         scoreResult.innerHTML += ('+' + score);
         scoreSum.innerHTML = ' = ' + (score + parseInt(scoreResult.innerHTML));
         resultComeOut(score + parseInt(scoreResult.innerHTML));
-
     }
 }
 
@@ -303,10 +305,9 @@ function updateSceneSize() {
 }
 
 function throwDice() {
-  score.style.opacity = '1';
+
     scoreResult.innerHTML = '';
     scoreSum.innerHTML    = '';
-
 
     diceArray.forEach((d, dIdx) => {
 

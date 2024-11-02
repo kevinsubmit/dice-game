@@ -1,30 +1,25 @@
 
-
 // 计算总共投注的总类和金额
-function moneySum(type,money){
-  let odd_money  = null;
-  let even_money = null;
-  let small_money= null;
-  let big_money  =  null;
+let money_type_sum = {
+  odd:   0,
+  even:  0,
+  small: 0,
+  big:   0,
+  sum:   0
+};
 
-  let money_type_sum = {
-    'odd'  :odd_money,
-    'even' :even_money,
-    'small':small_money,
-    'big'  :big_money
-  };
+function moneySum(type, money) {
+  money_type_sum.sum += money;
 
-  if(type === 'odd'){
-    odd_money += money;
-  }else if(type === 'even'){
-    even_money += money;
-  }else if(type === 'small'){
-    small_money += money;
+  if (type === "odd") {
+    money_type_sum.odd += money;
+  } else if (type === "even") {
+    money_type_sum.even += money;
+  } else if (type === "small") {
+    money_type_sum.small += money;
+  } else if(type === "big"){
+    money_type_sum.big += money;
   }else{
-    big_money += money;
+    return false;
   }
-  return money_type_sum
 }
-
-
-
