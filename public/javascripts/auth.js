@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
       showError('Password must be at least 6 characters long');
       return;
     }
+
+    // MD5加密密码
+    const hashedPassword = CryptoJS.MD5(password).toString();
     
     if (form.id === 'registerForm') {
       const confirmPassword = document.getElementById('confirmPassword').value;
@@ -34,14 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ 
+            email, 
+            password: hashedPassword  // 发送加密后的密码
+          })
         });
         
         const data = await response.json();
-
-        
-
-
         if (response.ok) {
           window.location.href = '/login';
         } else {
@@ -49,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } catch (error) {
 
-        window.location.href = '/login';//测试 后期数据库后去掉这行
-        return false;//测试 后期数据库后去掉这行
+        window.location.href = '/';//测试 后期通数据库后去掉这行
+        return false;//测试 后期通数据库后去掉这行
 
         showError('An error occurred. Please try again.');
       }
@@ -63,24 +65,21 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ 
+            email, 
+            password: hashedPassword  // 发送加密后的密码
+          })
         });
         
         const data = await response.json();
-
-       
-
         if (response.ok) {
           window.location.href = '/dashboard';
         } else {
           showError(data.message || 'Login failed');
         }
       } catch (error) {
-
-
         window.location.href = '/';//测试 后期通数据库后去掉这行
         return false;//测试 后期通数据库后去掉这行
-
 
         showError('An error occurred. Please try again.');
       }
