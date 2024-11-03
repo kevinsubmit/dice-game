@@ -8,7 +8,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 
 const canvasEl = document.querySelector('#canvas');
 const scoreResult = document.querySelector('#score-result');
-const scoreSum = document.querySelector('#score-sum');
+
 
 
 const rollBtn = document.querySelector('#roll-btn');
@@ -306,9 +306,14 @@ function updateSceneSize() {
 
 function throwDice() {
 
+
+  if(isBalanceEnough()){
+
+    
     scoreResult.innerHTML = '';
     scoreSum.innerHTML    = '';
-
+    lessBalance();
+  
     diceArray.forEach((d, dIdx) => {
 
         d.body.velocity.setZero();
@@ -328,4 +333,9 @@ function throwDice() {
 
         d.body.allowSleep = true;
     });
+  }else{
+    chipIsShow();
+    isDisabled(true);
+
+  }
 }

@@ -3,6 +3,16 @@ let drag_real_money = null; //筹码拖拽开始的筹码金额
 let drag_drop_type = null; //拖拽结束下注的类型
 let throw_state = false; //按钮默认是不能点击的，而且下注之前无法点击
 let result_comeout = false; //下注结果没有出来
+const scoreSum = document.querySelector('#score-sum'); //开奖后的数字结果
+const balance = document.querySelector('#balance'); //用户余额
+let money_type_sum = {
+  odd:   0,
+  even:  0,
+  small: 0,
+  big:   0,
+  sum:   0
+};// 计算总共投注的总类和金额
+
 
 //  鼠标在头像部分移出移入效果 Effect of moving the mouse in and out of the avatar part
 $(".big-pic").on("mouseenter", function () {
@@ -15,7 +25,6 @@ $(".dashboard").on("mouseleave", function () {
 // 筹码拖拽效果  Chip drag effect
 function dragStart(event) {
   // event.target.style.cursor = "grabbing";
-
   drag_start_money = event.target.className.slice(-1);
   drag_real_money  = parseInt(event.target.innerHTML.slice(1));
   event.dataTransfer.setData("drag_real_money", drag_real_money); //通过dragStart传递参数drag_real_money
@@ -25,32 +34,25 @@ function dragOver(event) {
   event.preventDefault();
 }
 
-
 function drop(event) {
   event.preventDefault();
-
   const data = parseInt(event.dataTransfer.getData("drag_real_money"));
   // const draggableElement = document.getElementById(data);
 
   drag_drop_type = event.target.innerHTML;
 
-
-
   moneySum(drag_drop_type,data);
   // moneySum(drag_drop_type,data);
-  console.log(money_type_sum);
+  // console.log(money_type_sum);
   
-
   chipIsShow(drag_drop_type, drag_start_money);
-
-  
 
   // // event.target.appendChild(draggableElement);
   // draggableElement.style.cursor = 'grabbing';
 }
 
 // 判断哪个筹码图标显示
-function chipIsShow(drag_drop_type, drag_start_money) {
+function chipIsShow(drag_drop_type=null, drag_start_money=null) {
   isDisabled(false);
   if (drag_drop_type && drag_start_money) {
     $("." + drag_drop_type + "-area")
@@ -76,8 +78,11 @@ function isDisabled(throw_state) {
 
 //骰子score已经产生
 function resultComeOut(scoreSum = null) {
+
+
   isDisabled(true);
   removeEffect(scoreSum);
+  distributeWinnings();
   money_type_sum = {
     odd:   0,
     even:  0,
@@ -85,39 +90,30 @@ function resultComeOut(scoreSum = null) {
     big:   0,
     sum:   0
   };
+
 }
 
 // score出来后去掉一切效果
-function removeEffect(scoreSum){
-  if(scoreSum % 2 == 0){
-    $(".cases").children().eq(0).removeClass("border-flow");
-    $(".cases").children().eq(1).addClass("border-flow");
-  }else{
-    $(".cases").children().eq(0).addClass("border-flow");
-    $(".cases").children().eq(1).removeClass("border-flow");
-  }
-
-  if(scoreSum <= 7){
- 
-    $(".cases").children().eq(2).addClass("border-flow");
-    $(".cases").children().eq(3).removeClass("border-flow");
-  }else{
+function removeEffect(scoreSum) {
   
-    $(".cases").children().eq(2).removeClass("border-flow");
-    $(".cases").children().eq(3).addClass("border-flow");
-  }
+  const $cases = $(".cases");
+  const isEven = scoreSum % 2 === 0;
+  const isSmall = scoreSum <= 7;
 
-  const myPromise = new Promise((resolve,reject) =>{
-    setTimeout(() =>{
-      resolve();  //如果括号里面有值那就作为参数传递给下面then里面的value
-      $(".cases p").removeClass("border-flow");
-    },2500)
-  });
+  // 处理奇偶
+  $cases.children().eq(0).toggleClass("border-flow", !isEven);
+  $cases.children().eq(1).toggleClass("border-flow", isEven);
 
-  const wrappedPromise = Promise.resolve(myPromise);
-  wrappedPromise.then(() =>{
+  // 处理大小
+  $cases.children().eq(2).toggleClass("border-flow", isSmall); 
+  $cases.children().eq(3).toggleClass("border-flow", !isSmall);
+
+  // 使用 async/await 简化 Promise 链
+  setTimeout(async () => {
+    $(".cases p").removeClass("border-flow");
+    await Promise.resolve();
     $(".chip-novisible p").removeClass("active");
-  })
+  }, 2500);
 }
 
 // 获取当前时间
