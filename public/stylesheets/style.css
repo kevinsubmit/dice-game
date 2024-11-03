@@ -19,6 +19,7 @@ body {
   font-weight: bold;
   box-sizing: border-box;
   background: #6e4e39cf;
+  border-radius: 5px;
   
 }
 
@@ -51,6 +52,7 @@ body {
   flex-direction: column;
   align-items: center;
   background: #6e4e39cf;
+  border-radius: 5px;
 }
 .big-pic-area p{
   font-size: 12px;
@@ -262,7 +264,6 @@ body {
 
 /* 规则弹出框样式 */
 .rules-modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;

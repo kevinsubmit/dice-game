@@ -38,12 +38,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const data = await response.json();
+
+        
+
+
         if (response.ok) {
           window.location.href = '/login';
         } else {
           showError(data.message || 'Registration failed');
         }
       } catch (error) {
+
+        window.location.href = '/login';//测试 后期数据库后去掉这行
+        return false;//测试 后期数据库后去掉这行
+
         showError('An error occurred. Please try again.');
       }
       
@@ -59,12 +67,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const data = await response.json();
+
+       
+
         if (response.ok) {
           window.location.href = '/dashboard';
         } else {
           showError(data.message || 'Login failed');
         }
       } catch (error) {
+
+
+        window.location.href = '/';//测试 后期通数据库后去掉这行
+        return false;//测试 后期通数据库后去掉这行
+
+
         showError('An error occurred. Please try again.');
       }
     }

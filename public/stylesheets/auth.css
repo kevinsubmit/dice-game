@@ -1,9 +1,15 @@
+body {
+  background: url(../images/lasvgs.jpg);
+  background-size: cover;
+}
+
+
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
 }
 
 .auth-form {
