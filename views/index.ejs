@@ -13,8 +13,7 @@
     <script defer src="/javascripts/compute.js"></script>
     <script defer src="/javascripts/index.js"></script>
     <script defer src="/javascripts/marquee.js"></script>
-    
-    
+    <script defer src="/javascripts/rules.js"></script>
     
   </head>
   <body>
@@ -93,7 +92,7 @@
     </div>
     
     </div>
-    <div class="dashboard">
+    <!-- <div class="dashboard">
       <div class="piczone">
         <p class="small-pic"></p>
         <span>Austin</span>
@@ -118,22 +117,44 @@
         </svg>
       <span> Game rules </span>
      </p>
+    </div> -->
+
+    <div id="simple-alert" class="simple-alert">
+      <div class="alert-box">
+        <p>Your balance is not enough</p>
+        <button onclick="closeSimpleAlert()">Sure</button>
+      </div>
     </div>
 
-    <!-- <div id="balance-alert" class="custom-alert">
-      <div class="alert-content">
-        <div class="alert-header">
-          <i class="alert-icon">⚠️</i>
-          <h3>余额不足</h3>
-        </div>
-        <div class="alert-body">
-          <p>您的余额不足，请及时充值</p>
-          <p class="balance-info">当前余额: <span id="current-balance">0</span></p>
-          <p class="balance-info">需要金额: <span id="needed-balance">0</span></p>
-        </div>
-        <button class="alert-button" onclick="closeAlert()">确定</button>
-      </div>
-    </div> -->
+    <!-- 添加规则按钮 (放在合适的位置，比如顶部导航栏) -->
+<button id="rules-btn" class="rules-trigger">
+  <i class="fas fa-question-circle"></i> 游戏规则
+</button>
+
+<!-- 规则弹出框 -->
+<div id="rules-modal" class="rules-modal">
+  <div class="rules-content">
+    <div class="rules-header">
+      <h3>Game Rules</h3>
+      <span class="close-rules">&times;</span>
+    </div>
+    <div class="rules-body">
+      <h4>🎲 How to Play</h4>
+      <ul>
+        <li>Select chip amount and place your bet in the corresponding area</li>
+        <li>Click "Roll Dice" button to start the game</li>
+        <li>System will randomly roll two dice</li>
+      </ul>
+      
+      <h4>💰 Payout Rules</h4>
+      <ul>
+        <li>Big/Small: Total points > 7 is Big, ≤ 7 is Small</li>
+        <li>Odd/Even: Total points being odd or even number</li>
+        <li>Payout ratio: 1:1</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
   </body>
   <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>

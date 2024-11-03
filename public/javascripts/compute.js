@@ -15,13 +15,12 @@ function moneySum(type, money) {
   }
 }
 
-
 // 投注之前判断用户余额
- function isBalanceEnough(){
-  console.log(money_type_sum.sum);
-  console.log(balance.innerHTML);
-  if(parseInt(money_type_sum.sum) > parseInt(balance.innerHTML)){
-
+function isBalanceEnough() {
+  const currentBalance = parseInt(balance.innerHTML);
+  const neededAmount = parseInt(money_type_sum.sum);
+  
+  if (neededAmount > currentBalance) {
     money_type_sum = {
       odd:   0,
       even:  0,
@@ -29,12 +28,17 @@ function moneySum(type, money) {
       big:   0,
       sum:   0
     };
-    alert('Your balance is not enough,please contact Austin');
-    return false
-  }else{
-    return true
+
+    // 显示简单提示框
+    document.getElementById('simple-alert').style.display = 'block';
+    return false;
   }
- }
+  return true;
+}
+
+function closeSimpleAlert() {
+  document.getElementById('simple-alert').style.display = 'none';
+}
 
 // 投注之后从账户减少钱
 function lessBalance(){
