@@ -2,8 +2,10 @@
   "name": "dice-game",
   "version": "0.0.0",
   "private": true,
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node server.js",
+    "startNode": "nodemon ./bin/www"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
