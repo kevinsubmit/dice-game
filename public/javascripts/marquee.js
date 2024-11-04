@@ -12,7 +12,6 @@ function marquee() {
     carouselLiner.scrollLeft++;
   }
 }
-
 let timer = setInterval(marquee, 30);
 
 

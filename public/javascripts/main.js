@@ -9,8 +9,6 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 const canvasEl = document.querySelector('#canvas');
 const scoreResult = document.querySelector('#score-result');
 
-
-
 const rollBtn = document.querySelector('#roll-btn');
 
 let renderer, scene, camera, diceMesh, physicsWorld;
@@ -308,7 +306,6 @@ function throwDice() {
 
 
   if(isBalanceEnough()){
-
     
     scoreResult.innerHTML = '';
     scoreSum.innerHTML    = '';

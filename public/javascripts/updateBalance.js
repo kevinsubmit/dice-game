@@ -1,5 +1,7 @@
  // 定期更新余额
  async function updateBalance() {
+
+  console.log('每隔30秒更新一次余额');
   try {
     const response = await fetch('/api/balance');
     if (response.ok) {
