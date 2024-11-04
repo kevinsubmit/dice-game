@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Home</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Dice Game</title>
 		<link rel="stylesheet" type="text/css" href="/stylesheets/base.css" />
@@ -21,18 +21,14 @@
     <div class="carousel">
       <div class="carousel-liner">
         <div class="welcome">
-             Welcome come to Las Vegas Online Dice , Austin
+             Welcome come to Las Vegas Online Dice , <%= user.email %>
         </div>
         <div class="time"></div>
       </div>
     </div>
-    <!-- 框架里面自有的注释掉 -->
-    <!-- <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p> -->
+  
     <main>
 			<div class="content">
-
-
         <div class="score">The score is <span id="score-result"> </span> <span id="score-sum"></span></div>
         <div class="cases">
           <p ondragover="dragOver(event)" ondrop="drop(event)">odd</p>
@@ -80,7 +76,7 @@
 
     <div class="big-pic-area">
       <div class="big-pic"></div>
-      <p>Balance : $ <span id="balance">100</span></p>
+      <p>Balance : $ <span id="balance"><%= user.balance %></span></p>
     </div>
     <div class="money-area">
       <div>Pick your chips</div>

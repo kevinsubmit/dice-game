@@ -1,46 +1,87 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+const session = require('express-session');
+const connectDB = require('./config/db');
+
+const authRoutes = require('./routes/auth');
 
 
-var app = express();
-var Promise = require('bluebird');
+const app = express();
+const Promise = require('bluebird');
 
-// view engine setup
+
+// 连接数据库
+connectDB();
+
+// 设置视图引擎
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// 中间件设置
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'austinIsHandsome',// session密钥
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === 'production' }// 生产环境使用secure cookie
+}));
 
 
 
-app.use('/', indexRouter); //设置路由前缀
+app.use(logger('dev'));
+app.use(express.json()); // 解析JSON请求体
+app.use(express.urlencoded({ extended: false })); // 解析URL编码的请求体
+app.use(cookieParser()); // 解析cookie
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// 根路由 - 重定向到登录页面
+app.get('/', (req, res) => {
+  res.redirect('/login');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// 添加 index 页面路由
+app.get('/index', (req, res) => {
+  // 检查用户是否已登录
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  res.render('index', { user: req.session.user });
+});
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// 登录页面路由
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+// 注册页面路由
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.use('/api',authRoutes); //设置路由前缀
+
+
+// 404处理
+app.use((req, res) => {
+  res.status(404).render('404', { message: 'Page not found' });
+});
+
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something broke!' });
 });
 
 
+// 启动服务器
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 module.exports = app;  
