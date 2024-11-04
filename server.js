@@ -13,6 +13,7 @@ const authRoutes = require('./routes/auth');
 const app = express();
 const Promise = require('bluebird');
 
+require('dotenv').config()
 
 // 连接数据库
 connectDB();
@@ -47,9 +48,9 @@ app.get('/', (req, res) => {
 // 添加 index 页面路由
 app.get('/index', (req, res) => {
   // 检查用户是否已登录
-  if (!req.session.user) {
-    return res.redirect('/login');
-  }
+  // if (!req.session.user) {
+  //   return res.redirect('/login');
+  // }
   res.render('index', { user: req.session.user });
 });
 
@@ -81,6 +82,6 @@ app.use((err, req, res, next) => {
 // 启动服务器
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });
 
