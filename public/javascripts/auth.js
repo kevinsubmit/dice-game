@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
           showError(data.message || 'Login failed');
         }
       } catch (error) {
-        console.error('Login error:', error); // 调试日志
+        // console.error('Login error:', error); // 调试日志
         showError('An error occurred. Please try again.');
       }
     }
