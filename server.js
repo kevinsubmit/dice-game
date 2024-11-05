@@ -5,15 +5,21 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const session = require('express-session');
-const connectDB = require('./config/db');
+const MongoStore = require('connect-mongo');
+const { connectDB, dbURL } = require('./config/db');
 
 const authRoutes = require('./routes/auth');
 
 
 const app = express();
 const Promise = require('bluebird');
-
 require('dotenv').config()
+
+
+app.use(logger('dev'));
+app.use(express.json()); // 解析JSON请求体
+app.use(express.urlencoded({ extended: false })); // 解析URL编码的请求体
+app.use(cookieParser()); // 解析cookie
 
 // 连接数据库
 connectDB();
@@ -22,36 +28,29 @@ connectDB();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// 中间件设置
+// 中间件设置  // Session 配置
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'austinIsHandsome',// session密钥
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'production' }// 生产环境使用secure cookie
+  store: MongoStore.create({
+    mongoUrl: dbURL, // 你的 MongoDB 连接字符串
+    ttl: 24 * 60 * 60 // session 过期时间（秒）
+}),
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000  // 24小时
+  }
 }));
 
 
 
-app.use(logger('dev'));
-app.use(express.json()); // 解析JSON请求体
-app.use(express.urlencoded({ extended: false })); // 解析URL编码的请求体
-app.use(cookieParser()); // 解析cookie
-
-
-// 根路由 - 重定向到登录页面
-app.get('/', (req, res) => {
-  res.redirect('/login');
-});
-
-// 添加 index 页面路由
+// index 路由
 app.get('/index', (req, res) => {
-  // 检查用户是否已登录
-  // if (!req.session.user) {
-  //   return res.redirect('/login');
-  // }
-  res.render('index', { user: req.session.user });
+  res.render('index');
+  
 });
 
 // 登录页面路由
@@ -72,11 +71,6 @@ app.use((req, res) => {
   res.status(404).render('404', { message: 'Page not found' });
 });
 
-// 错误处理中间件
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Something broke!' });
-});
 
 
 // 启动服务器

@@ -1,36 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('form');
   
-  // 生成随机salt的函数
-  function generateSalt(length = 16) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let salt = '';
-    for (let i = 0; i < length; i++) {
-      salt += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return salt;
-  }
-
-  // 使用salt加密密码的函数
-  function hashPasswordWithSalt(password, salt) {
-    const combinedPassword = password + salt;
-    return CryptoJS.MD5(combinedPassword).toString();
-  }
-  
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const username = document.getElementById('username')?.value;
+    const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     
-    // 表单验证
-    if (form.id === 'registerForm') {
-      if (!username || username.length < 2 || username.length > 20) {
-        showError('Username must be between 2 and 20 characters');
-        return;
-      }
-    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -43,17 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // 生成salt并加密密码
-    const salt = generateSalt();
-    const hashedPassword = hashPasswordWithSalt(password, salt);
     
+    // 如果form是登录表单，则进行登录表单验证
     if (form.id === 'registerForm') {
       const confirmPassword = document.getElementById('confirmPassword').value;
       if (password !== confirmPassword) {
         showError('Passwords do not match');
         return;
       }
-      
       try {
         console.log('Sending registration request...'); // 调试日志
         const response = await fetch('/api/register', {
@@ -64,8 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({ 
             username,
             email, 
-            password: hashedPassword,
-            salt
+            password
           })
         });
         
@@ -82,44 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Registration error:', error); // 调试日志
         showError('An error occurred. Please try again.');
       }
-    } else {
-      // 登录逻辑
-      try {
-        // 先获取用户的salt
-        const saltResponse = await fetch(`/api/get-salt?email=${encodeURIComponent(email)}`);
-        const saltData = await saltResponse.json();
-        
-        if (!saltResponse.ok) {
-          showError('Invalid email or password');
-          return;
-        }
-
-        // 使用获取到的salt来加密密码
-        const hashedPassword = hashPasswordWithSalt(password, saltData.salt);
-        
-        const loginResponse = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            email, 
-            password: hashedPassword
-          })
-        });
-        
-        const data = await loginResponse.json();
-        if (loginResponse.ok) {
-          window.location.href = '/index';
-        } else {
-          showError(data.message || 'Login failed');
-        }
-      } catch (error) {
-        // console.error('Login error:', error); // 调试日志
-        showError('An error occurred. Please try again.');
-      }
-    }
+    } 
   });
+
+
   
   // 显示错误信息的函数
   function showError(message) {
