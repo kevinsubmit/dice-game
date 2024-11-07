@@ -6,7 +6,7 @@ const logger = require('morgan');
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const { connectDB, dbURL } = require('./config/db');
+const { connectDB, MONGODB_URI } = require('./config/db');
 
 const authRoutes = require('./routes/auth');
 
@@ -36,7 +36,7 @@ app.use(session({
   resave: false,//强制保存session，即使它并没有变化
   saveUninitialized: false,//强制将未初始化的session存储
   store: MongoStore.create({
-    mongoUrl: dbURL, // 你的 MongoDB 连接字符串
+    mongoUrl: MONGODB_URI, // 你的 MongoDB 连接字符串
     ttl: 24 * 60 * 60 // session 过期时间（秒）
 }),
   cookie: {
@@ -44,6 +44,12 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000  // 24小时  过期时间
   }
 }));
+
+// index 路由
+app.get('/', (req, res) => {
+  res.render('login');
+  
+});
 
 
 
