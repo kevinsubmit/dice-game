@@ -120,4 +120,26 @@ function removeEffect(scoreSum) {
 $('.time').html((new Date().Format("MM-dd-yyyy" ))+' (EST)');
 
 
+// 从localStorage中获取用户信息
+const user = JSON.parse(localStorage.getItem('userInfo'));
+// 检查是否存在
+const usernameEl = document.getElementById('username');
+const balanceEl = document.getElementById('balance');
+
+if (user) {
+  usernameEl.innerHTML = user.username;
+  balanceEl.innerHTML = user.balance;
+} else {
+  usernameEl.innerHTML = 'Austin';
+  balanceEl.innerHTML = '1000';
+}
+
+
+
+
+
+
+
+
+
 

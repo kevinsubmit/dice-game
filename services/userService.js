@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const crypto = require('crypto');
 
 class UserService {
   // 创建新用户
@@ -64,19 +63,7 @@ class UserService {
     }
   }
 
-  // 获取用户salt
-  async getSalt(email) {
-    try {
-      const user = await User.findOne({ email });
-      if (!user) {
-        // 返回随机salt以防止用户枚举 // 如果用户不存在，返回随机salt（安全考虑）
-        return { salt: crypto.randomBytes(16).toString('hex') };
-      }
-      return { salt: user.salt };
-    } catch (error) {
-      throw error;
-    }
-  }
+
 
   // 更新用户余额
   async updateBalance(email, amount) {
