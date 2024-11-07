@@ -33,15 +33,15 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'austinIsHandsome',// session密钥
-  resave: false,
-  saveUninitialized: false,
+  resave: false,//强制保存session，即使它并没有变化
+  saveUninitialized: false,//强制将未初始化的session存储
   store: MongoStore.create({
     mongoUrl: dbURL, // 你的 MongoDB 连接字符串
     ttl: 24 * 60 * 60 // session 过期时间（秒）
 }),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000  // 24小时
+    maxAge: 24 * 60 * 60 * 1000  // 24小时  过期时间
   }
 }));
 
