@@ -13,7 +13,6 @@ let money_type_sum = {
   sum:   0
 };// 计算总共投注的总类和金额
 
-
 //  鼠标在头像部分移出移入效果 Effect of moving the mouse in and out of the avatar part
 $(".big-pic").on("mouseenter", function () {
   $(".dashboard").animate({ right: "10px" }, 200);
@@ -78,8 +77,6 @@ function isDisabled(throw_state) {
 
 //骰子score已经产生
 function resultComeOut(scoreSum = null) {
-
-
   isDisabled(true);
   removeEffect(scoreSum);
   distributeWinnings();
@@ -118,7 +115,6 @@ function removeEffect(scoreSum) {
 
 // 获取当前时间
 $('.time').html((new Date().Format("MM-dd-yyyy" ))+' (EST)');
-
 
 // 从localStorage中获取用户信息
 const user = JSON.parse(localStorage.getItem('userInfo'));

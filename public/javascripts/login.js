@@ -18,7 +18,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     const data = await response.json();
 
-    console.log(data);
 
     if (data.success) {
       // 保存用户信息到 localStorage
@@ -42,25 +41,11 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 });
 
 
-// 检查是否已经登录
-// document.addEventListener("DOMContentLoaded", () => {
-//   console.log("DOMContentLoaded是否执行");
-//   // 检查 localStorage 中是否有用户信息
-//   const userInfo = localStorage.getItem("userInfo");
-//   if (userInfo) {
-//     // 如果有用户信息，验证 session 是否还有效
-//     checkSession();
-//   }
-// });
-
 // 验证 session 是否有效
 async function checkSession() {
   try {
     const response = await fetch("/api/check-session");
     const data = await response.json();
-
-    console.log(response);
-
     if (data.success) {
       // session 有效，直接跳转到主页
       window.location.href = "/index";
@@ -68,13 +53,13 @@ async function checkSession() {
       // session 无效，清除本地存储
       // localStorage.removeItem("userInfo");
       console.log("session 无效，清除本地存储");
-      // window.location.href = "/login";
+      window.location.href = "/login";
     }
   } catch (error) {
     console.error("Session error:", error);
     
     // localStorage.removeItem("userInfo");
-    // window.location.href = "/login";
+    window.location.href = "/login";
   }
 }
 
@@ -85,6 +70,18 @@ async function makeAuthenticatedRequest(url, options = {}) {
       credentials: 'include'  // 确保每个请求都带上 cookies
   });
 }
+
+
+// 检查是否已经登录
+// document.addEventListener("DOMContentLoaded", () => {
+//   console.log("DOMContentLoaded是否执行");
+//   // 检查 localStorage 中是否有用户信息
+//   const userInfo = localStorage.getItem("userInfo");
+//   if (userInfo) {
+//     // 如果有用户信息，验证 session 是否还有效
+//     checkSession();
+//   }
+// });
 
 
 // 工作流程：
