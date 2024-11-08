@@ -73,15 +73,15 @@ async function makeAuthenticatedRequest(url, options = {}) {
 
 
 // 检查是否已经登录
-// document.addEventListener("DOMContentLoaded", () => {
-//   console.log("DOMContentLoaded是否执行");
-//   // 检查 localStorage 中是否有用户信息
-//   const userInfo = localStorage.getItem("userInfo");
-//   if (userInfo) {
-//     // 如果有用户信息，验证 session 是否还有效
-//     checkSession();
-//   }
-// });
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOMContentLoaded是否执行");
+  // 检查 localStorage 中是否有用户信息
+  const userInfo = localStorage.getItem("userInfo");
+  if (userInfo) {
+    // 如果有用户信息，验证 session 是否还有效
+    checkSession();
+  }
+});
 
 
 // 工作流程：
