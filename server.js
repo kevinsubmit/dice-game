@@ -46,7 +46,7 @@ app.use(session({
 }));
 
 // index 路由
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.render('login');
   
 });
@@ -54,18 +54,18 @@ app.get('/', (req, res) => {
 
 
 // index 路由
-app.get('/index', (req, res) => {
+app.get('/api/index', (req, res) => {
   res.render('index');
   
 });
 
 // 登录页面路由
-app.get('/login', (req, res) => {
+app.get('/api/login', (req, res) => {
   res.render('login');
 });
 
 // 注册页面路由
-app.get('/register', (req, res) => {
+app.get('/api/register', (req, res) => {
   res.render('register');
 });
 
