@@ -135,132 +135,132 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// // 登出路由
-// router.post("/logout", (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.error("Logout error:", err);
-//       return res.status(500).json({
-//         message: "Logout failed",
-//         error: err.message,
-//       });
-//     }
+// 登出路由
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+      return res.status(500).json({
+        message: "Logout failed",
+        error: err.message,
+      });
+    }
 
-//     res.json({
-//       success: true,
-//       message: "Logged out successfully",
-//     });
-//   });
-// });
+    res.json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  });
+});
 
-// // 检查 session 状态
-// // 检查 session 状态的路由
-// router.get('/check-session', async (req, res) => {
-//   try {
-//       // 1. 检查是否有 session
-//       if (!req.session || !req.session.user) {
-//           return res.json({
-//               success: false,
-//               message: 'Session is not exist'
-//           });
-//       }
+// 检查 session 状态
+// 检查 session 状态的路由
+router.get('/check-session', async (req, res) => {
+  try {
+      // 1. 检查是否有 session
+      if (!req.session || !req.session.user) {
+          return res.json({
+              success: false,
+              message: 'Session is not exist'
+          });
+      }
 
-//       // 2. 从数据库获取 session
-//       const sessionStore = req.sessionStore;
-//       sessionStore.get(req.sessionID, async (error, session) => {
-//           if (error) {
-//               console.error('Session 获取错误:', error);
-//               return res.status(500).json({
-//                   success: false,
-//                   message: 'Server error'
-//               });
-//           }
+      // 2. 从数据库获取 session
+      const sessionStore = req.sessionStore;
+      sessionStore.get(req.sessionID, async (error, session) => {
+          if (error) {
+              console.error('Session 获取错误:', error);
+              return res.status(500).json({
+                  success: false,
+                  message: 'Server error'
+              });
+          }
 
-//           // 3. 验证 session 是否存在且未过期
-//           if (!session) {
-//               return res.json({
-//                   success: false,
-//                   message: 'Session is expired'
-//               });
-//           }
+          // 3. 验证 session 是否存在且未过期
+          if (!session) {
+              return res.json({
+                  success: false,
+                  message: 'Session is expired'
+              });
+          }
 
-//           // 4. 验证用户信息
-//           const user = await User.findById(session.user.id);
-//           if (!user) {
-//               // session 有效但用户不存在，清除 session
-//               req.session.destroy();
-//               return res.json({
-//                   success: false,
-//                   message: 'User is not exist'
-//               });
-//           }
+          // 4. 验证用户信息
+          const user = await User.findById(session.user.id);
+          if (!user) {
+              // session 有效但用户不存在，清除 session
+              req.session.destroy();
+              return res.json({
+                  success: false,
+                  message: 'User is not exist'
+              });
+          }
 
-//           // 5. 更新 session
-//           req.session.user = {
-//               id: user._id,
-//               username: user.username,
-//               email: user.email,
-//               balance: user.balance
-//           };
+          // 5. 更新 session
+          req.session.user = {
+              id: user._id,
+              username: user.username,
+              email: user.email,
+              balance: user.balance
+          };
 
-//           res.json({
-//               success: true,
-//               user: {
-//                   username: user.username,
-//                   email: user.email,
-//                   balance: user.balance
-//               }
-//           });
-//       });
+          res.json({
+              success: true,
+              user: {
+                  username: user.username,
+                  email: user.email,
+                  balance: user.balance
+              }
+          });
+      });
 
-//   } catch (error) {
-//       console.error('Session check error:', error);
-//       res.status(500).json({
-//           success: false,
-//           message: 'Server error'
-//       });
-//   }
-// });
+  } catch (error) {
+      console.error('Session check error:', error);
+      res.status(500).json({
+          success: false,
+          message: 'Server error'
+      });
+  }
+});
 
-// // 登出路由
-// router.post('/logout', (req, res) => {
-//   req.session.destroy((err) => {
-//       if (err) {
-//           return res.status(500).json({
-//               success: false,
-//               message: 'logout failed'
-//           });
-//       }
+// 登出路由
+router.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+      if (err) {
+          return res.status(500).json({
+              success: false,
+              message: 'logout failed'
+          });
+      }
       
-//       res.json({
-//           success: true,
-//           message: 'logout success'
-//       });
-//   });
-// });
+      res.json({
+          success: true,
+          message: 'logout success'
+      });
+  });
+});
 
     
-// // 添加一个获取余额的路由
-// router.get("/balance", async (req, res) => {
-//   try {
-//     // 检查用户是否登录
-//     if (!req.session.user) {
-//       return res.status(401).json({ message: "Not logged in" });
-//     }
+// 添加一个获取余额的路由
+router.get("/balance", async (req, res) => {
+  try {
+    // 检查用户是否登录
+    if (!req.session.user) {
+      return res.status(401).json({ message: "Not logged in" });
+    }
 
-//     // 从数据库获取最新余额
-//     const user = await User.findById(req.session.user.id);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     // 更新session中的余额
-//     req.session.user.balance = user.balance;
-//     res.json({ balance: user.balance });
-//   } catch (error) {
-//     console.error("Get balance error:", error);
-//     res.status(500).json({ message: "Failed to get balance" });
-//   }
-// });
+    // 从数据库获取最新余额
+    const user = await User.findById(req.session.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // 更新session中的余额
+    req.session.user.balance = user.balance;
+    res.json({ balance: user.balance });
+  } catch (error) {
+    console.error("Get balance error:", error);
+    res.status(500).json({ message: "Failed to get balance" });
+  }
+});
 
 
-// module.exports = router;
+module.exports = router;
