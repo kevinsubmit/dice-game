@@ -46,28 +46,28 @@ app.use(session({
 }));
 
 // index 路由
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   res.render('login');
   
 });
 
 // index 路由
-app.get('/api/index', (req, res) => {
+app.get('/index', (req, res) => {
   res.render('index');
   
 });
 
 // 登录页面路由
-app.get('/api/login', (req, res) => {
+app.get('/login', (req, res) => {
   res.render('login');
 });
 
 // 注册页面路由
-app.get('/api/register', (req, res) => {
+app.get('/register', (req, res) => {
   res.render('register');
 });
 
-app.use('/',authRoutes); //设置路由前缀
+app.use('/api',authRoutes); //设置路由前缀
 
 
 // 404处理
