@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 // 数据库连接URL
-const MONGODB_URI = 'mongodb://localhost:27017/casino_db';
-// const MONGODB_URI = process.env.MONGODB_URI;
+// const MONGODB_URI = 'mongodb://localhost:27017/casino_db';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // 连接数据库
 const connectDB = async () => {

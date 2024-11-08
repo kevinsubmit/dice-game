@@ -51,25 +51,23 @@ app.get('/api/', (req, res) => {
   
 });
 
-
-
-// index 路由
-app.get('/api/index', (req, res) => {
-  res.render('index');
+// // index 路由
+// app.get('/api/index', (req, res) => {
+//   res.render('index');
   
-});
+// });
 
-// 登录页面路由
-app.get('/api/login', (req, res) => {
-  res.render('login');
-});
+// // 登录页面路由
+// app.get('/api/login', (req, res) => {
+//   res.render('login');
+// });
 
-// 注册页面路由
-app.get('/api/register', (req, res) => {
-  res.render('register');
-});
+// // 注册页面路由
+// app.get('/api/register', (req, res) => {
+//   res.render('register');
+// });
 
-app.use('/api',authRoutes); //设置路由前缀
+app.use('/',authRoutes); //设置路由前缀
 
 
 // 404处理
