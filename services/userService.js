@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../api/models/User');
 
 class UserService {
   // 创建新用户
