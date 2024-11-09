@@ -7,7 +7,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value;
 
   try {
-    const response = await fetch("/login", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 // 验证 session 是否有效
 async function checkSession() {
   try {
-    const response = await fetch("/check-session");
+    const response = await fetch("/api/check-session");
     const data = await response.json();
     if (data.success) {
       // session 有效，直接跳转到主页
