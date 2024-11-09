@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'austinIsHandsome',// session密钥
-  resave: false,//强制保存session，即使它并没有变化
+  resave: false,//强制保存session，即使它并没有变化g
   saveUninitialized: false,//强制将未初始化的session存储
   store: MongoStore.create({
     mongoUrl: MONGODB_URI, // 你的 MongoDB 连接字符串
