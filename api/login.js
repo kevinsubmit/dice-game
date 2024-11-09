@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const User = require("./models/User");
 
 // 注册路由  注册这部分是没问题的
 router.post("/register", async (req, res) => {
