@@ -8,7 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const { connectDB, MONGODB_URI } = require('./api/config/db');
 
-const authRoutes = require('./api/routes/login');
+const authRoutes = require('./api/routes/auth');
 
 
 const app = express();
