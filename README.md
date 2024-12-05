@@ -11,12 +11,12 @@ Deployed Website: https://dice-game-c602dff5e54e.herokuapp.com/
 GitHub Repository: https://github.com/kevinsubmit/dice-game
 
 
-**Initial Landing View**
+### Initial Landing View
 ![image](https://github.com/kevinsubmit/dice-game/blob/main/public/images/login.png)
 
 ![image](https://github.com/kevinsubmit/dice-game/blob/main/public/images/newone.png)
 
-**Results View**
+**# Results View**
 
 ![image](https://github.com/kevinsubmit/dice-game/blob/main/public/images/newtwo.png)
 
